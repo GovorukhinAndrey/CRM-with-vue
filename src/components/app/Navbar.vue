@@ -10,20 +10,20 @@
 
       <ul class="right hide-on-small-and-down">
         <li>
-          <a class="dropdown-trigger black-text" href="#" data-target="dropdown">
+          <a class="dropdown-trigger black-text" href="#" data-target="dropdown" ref="dropdown">
             USER NAME
             <i class="material-icons right">arrow_drop_down</i>
           </a>
 
           <ul id="dropdown" class="dropdown-content">
             <li>
-              <a href="#" class="black-text">
+              <router-link to="/profile" class="black-text">
                 <i class="material-icons">account_circle</i>Профиль
-              </a>
+              </router-link>
             </li>
             <li class="divider" tabindex="-1"></li>
             <li>
-              <a href="#" class="black-text">
+              <a href="#" @click.prevent="logout" class="black-text">
                 <i class="material-icons">assignment_return</i>Выйти
               </a>
             </li>
@@ -33,3 +33,20 @@
     </div>
   </nav>
 </template>
+<script>
+export default {
+  name: 'Navbar',
+  mounted() {
+    // eslint-disable-next-line no-undef
+    this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
+      constrainWidth: false,
+    });
+  },
+  methods: {
+    logout() {
+      console.log('logout');
+      this.$router.push('/login?message=logout');
+    },
+  },
+};
+</script>
