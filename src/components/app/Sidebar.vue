@@ -1,5 +1,5 @@
 <template>
-  <ul class="sidenav app-sidenav open">
+  <ul class="sidenav app-sidenav" :class="{ open: value }">
     <router-link
       v-for="link in links"
       :key="link.title"
@@ -15,9 +15,15 @@
 
 <script>
 export default {
+  props: {
+    value: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data: () => ({
     links: [
-      { title: 'Счет', url: '/', exact: 'true' },
+      { title: 'Счет', url: '/', exact: true },
       { title: 'История', url: '/history' },
       { title: 'Планирование', url: '/planning' },
       { title: 'Новая запись', url: '/record' },

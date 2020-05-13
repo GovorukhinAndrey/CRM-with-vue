@@ -1,9 +1,9 @@
 <template>
   <div class="app-main-layout">
-    <Navbar></Navbar>
-    <Sidebar></Sidebar>
+    <Navbar @click="isOpen = !isOpen"></Navbar>
+    <Sidebar v-model="isOpen"></Sidebar>
 
-    <main class="app-content">
+    <main class="app-content" :class="{ full: !isOpen }">
       <div class="app-page">
         <router-view></router-view>
       </div>
@@ -27,5 +27,8 @@ export default {
     Navbar,
     Sidebar,
   },
+  data: () => ({
+    isOpen: true,
+  }),
 };
 </script>
