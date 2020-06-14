@@ -5,18 +5,18 @@ export default {
   state: {},
   mutations: {},
   actions: {
-    async login(context, { email, password }) {
+    async login({ commit }, { email, password }) {
       try {
         await firebaseAuth.signInWithEmailAndPassword(email, password);
       } catch (error) {
-        console.log(error);
-        throw error.message;
+        commit('setError', error);
+        throw error;
       }
     },
     async logout() {
       await firebaseAuth.signOut();
     },
-    async register({ dispatch }, { email, password, name }) {
+    async register({ dispatch, commit }, { email, password, name }) {
       try {
         await firebaseAuth.createUserWithEmailAndPassword(email, password);
         const uid = await dispatch('getUid');
@@ -25,7 +25,8 @@ export default {
           name,
         });
       } catch (error) {
-        throw error.message;
+        commit('setError', error);
+        throw error;
       }
     },
     getUid() {
