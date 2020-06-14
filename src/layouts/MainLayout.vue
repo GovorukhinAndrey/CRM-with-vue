@@ -1,18 +1,21 @@
 <template>
-  <div class="app-main-layout">
-    <Navbar @click="isOpen = !isOpen"></Navbar>
-    <Sidebar v-model="isOpen"></Sidebar>
+  <div>
+    <loader v-if="lodaing" />
+    <div v-else class="app-main-layout">
+      <Navbar @click="isOpen = !isOpen"></Navbar>
+      <Sidebar v-model="isOpen"></Sidebar>
 
-    <main class="app-content" :class="{ full: !isOpen }">
-      <div class="app-page">
-        <router-view></router-view>
+      <main class="app-content" :class="{ full: !isOpen }">
+        <div class="app-page">
+          <router-view></router-view>
+        </div>
+      </main>
+
+      <div class="fixed-action-btn">
+        <router-link class="btn-floating btn-large blue" to="/record">
+          <i class="large material-icons">add</i>
+        </router-link>
       </div>
-    </main>
-
-    <div class="fixed-action-btn">
-      <router-link class="btn-floating btn-large blue" to="/record">
-        <i class="large material-icons">add</i>
-      </router-link>
     </div>
   </div>
 </template>
@@ -27,13 +30,16 @@ export default {
     Navbar,
     Sidebar,
   },
+  data: () => ({
+    isOpen: true,
+    lodaing: true,
+  }),
   async mounted() {
     if (!Object.keys(this.$store.getters.info).length) {
       await this.$store.dispatch('fetchInfo');
     }
+
+    this.lodaing = false;
   },
-  data: () => ({
-    isOpen: true,
-  }),
 };
 </script>
