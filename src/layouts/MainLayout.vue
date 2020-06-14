@@ -27,6 +27,11 @@ export default {
     Navbar,
     Sidebar,
   },
+  async mounted() {
+    if (!Object.keys(this.$store.getters.info).length) {
+      await this.$store.dispatch('fetchInfo');
+    }
+  },
   data: () => ({
     isOpen: true,
   }),
